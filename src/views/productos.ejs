@@ -35,7 +35,8 @@
                                             <td class="text-end">$<%= producto.precio.toFixed(2) %>
                                             </td>
                                             <td>
-                                                <%= categorias.find(categoria=> categoria.idCategoria === producto.idCategoria).nombre %>
+                                                <%= categorias.find(categoria=> categoria.idCategoria ===
+                                                    producto.idCategoria).nombre %>
                                             </td>
                                             <td>
                                                 <%= marcas.find(marca=> marca.idMarca === producto.idMarca).nombre %>
@@ -48,9 +49,8 @@
                                             <td class="d-flex justify-content-center gap-2">
                                                 <a href="/proupdate/<%= producto.idProducto %>"
                                                     class="btn btn-info btn-sm">Editar</a>
-                                                <button class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete('/prodelete/<%= producto.idProducto %>')">
-                                                    Eliminar
+                                                <a href="/prodelete/<%= producto.idProducto %>" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar esta marca?')">Eliminar</a>
                                                 </button>
                                             </td>
                                         </tr>
@@ -91,7 +91,7 @@
                                     value="<%= data ? data.precio : '' %>" class="form-control" required>
                             </div>
                             <!-- Categoria -->
-                             <label for="">Categoría:</label>
+                            <label for="">Categoría:</label>
                             <div class="form-group mb-3">
                                 <select name="idCategoria" class="form-control" required>
                                     <% categorias.forEach(categoria=> { %>
@@ -103,7 +103,7 @@
                                 </select>
                             </div>
                             <!-- Marca -->
-                             <label for="">Marca:</label>
+                            <label for="">Marca:</label>
                             <div class="form-group mb-3">
                                 <select name="idMarca" class="form-control" required>
                                     <% marcas.forEach(marca=> { %>
@@ -132,11 +132,3 @@
     </div>
 
     <%- include("partials/footer.ejs") %>
-
-        <script>
-            function confirmDelete(url) {
-                if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-                    window.location.href = url;
-                }
-            }
-        </script>
