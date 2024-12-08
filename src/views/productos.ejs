@@ -1,0 +1,142 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Tabla de productos -->
+            <div class="col-md-8">
+                <% if (!data) { %>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead>
+                                <tr class="table-primary text-center">
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>Fecha registro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (productos && productos.length> 0) { %>
+                                    <% productos.forEach(producto=> { %>
+                                        <tr>
+                                            <td class="text-center">
+                                                <%= producto.idProducto %>
+                                            </td>
+                                            <td>
+                                                <%= producto.nombre %>
+                                            </td>
+                                            <td>
+                                                <%= producto.descripcion %>
+                                            </td>
+                                            <td class="text-end">$<%= producto.precio.toFixed(2) %>
+                                            </td>
+                                            <td>
+                                                <%= categorias.find(categoria=> categoria.idCategoria === producto.idCategoria).nombre %>
+                                            </td>
+                                            <td>
+                                                <%= marcas.find(marca=> marca.idMarca === producto.idMarca).nombre %>
+
+                                            </td>
+                                            <td class="text-center">
+                                                <%= new Date(producto.fechaRegistro).toLocaleDateString('es-ES', {
+                                                    year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+                                            </td>
+                                            <td class="d-flex justify-content-center gap-2">
+                                                <a href="/proupdate/<%= producto.idProducto %>"
+                                                    class="btn btn-info btn-sm">Editar</a>
+                                                <button class="btn btn-danger btn-sm"
+                                                    onclick="confirmDelete('/prodelete/<%= producto.idProducto %>')">
+                                                    Eliminar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="8" class="text-center">Sin registros</td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+            </div>
+
+            <!-- Formulario -->
+            <div class="col-md-4">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <!-- Botones -->
+
+                        <h5 class="card-title text-center text-primary">
+                        </h5>
+                        <form action="<%= data ? '/proupdate/' + data.idProducto : '/prosave' %>" method="post">
+                            <!-- Nombre -->
+                            <div class="form-group mb-3">
+                                <input type="text" name="nombre" placeholder="Nombre del producto"
+                                    value="<%= data ? data.nombre : '' %>" class="form-control" maxlength="50" required>
+                            </div>
+                            <!-- Descripcion -->
+                            <div class="form-group mb-3">
+                                <textarea name="descripcion" placeholder="Descripción del producto" class="form-control"
+                                    maxlength="200" rows="4" required><%= data ? data.descripcion : '' %></textarea>
+                            </div>
+                            <!-- Precio -->
+                            <div class="form-group mb-3">
+                                <input type="number" step="0.01" name="precio" placeholder="Precio del producto"
+                                    value="<%= data ? data.precio : '' %>" class="form-control" required>
+                            </div>
+                            <!-- Categoria -->
+                             <label for="">Categoría:</label>
+                            <div class="form-group mb-3">
+                                <select name="idCategoria" class="form-control" required>
+                                    <% categorias.forEach(categoria=> { %>
+                                        <option value="<%= categoria.idCategoria %>" <%=data &&
+                                            data.idCategoria===categoria.idCategoria ? 'selected' : '' %>>
+                                            <%= categoria.nombre %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <!-- Marca -->
+                             <label for="">Marca:</label>
+                            <div class="form-group mb-3">
+                                <select name="idMarca" class="form-control" required>
+                                    <% marcas.forEach(marca=> { %>
+                                        <option value="<%= marca.idMarca %>" <%=data && data.idMarca===marca.idMarca
+                                            ? 'selected' : '' %>>
+                                            <%= marca.nombre %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <!-- Botones registro -->
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">
+                                    <%= data ? 'Actualizar' : 'Registrar' %>
+                                </button>
+                                <% if (data) { %>
+                                    <a href="/proview" class="btn btn-secondary">Cancelar</a>
+                                    <% } %>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
+
+        <script>
+            function confirmDelete(url) {
+                if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                    window.location.href = url;
+                }
+            }
+        </script>

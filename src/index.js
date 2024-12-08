@@ -9,6 +9,7 @@ const app = express();
 // importar rutas
 const categoriasRoutes = require('./routes/categorias.js');
 const marcasRoutes = require('./routes/marcas.js');
+const productosRoutes = require('./routes/productos.js');
 
 // Settings
 app.set('port', process.env.PORT ||3000);
@@ -24,11 +25,13 @@ app.use (myConnection(mysql, {
     port : 3306,
     database: 'keypa_outlet'
 }))
+// middleware para parsear datos de formularios
 app.use(express.urlencoded({extended: false}))
 
 // routes
 app.use('/',categoriasRoutes);
 app.use('/',marcasRoutes);
+app.use('/',productosRoutes);
 
 
 //static files

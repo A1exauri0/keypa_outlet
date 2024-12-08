@@ -13,40 +13,45 @@
               </tr>
             </thead>
             <tbody>
-              <% if (marcas && marcas.length > 0) { %>
-                <% for (var i = 0; i < marcas.length; i++) { %>
+              <% if (marcas && marcas.length> 0) { %>
+                <% for (var i=0; i < marcas.length; i++) { %>
                   <tr>
-                    <td><%= marcas[i].idMarca %></td>
-                    <td><%= marcas[i].nombre %></td>
+                    <td>
+                      <%= marcas[i].idMarca %>
+                    </td>
+                    <td>
+                      <%= marcas[i].nombre %>
+                    </td>
                     <td class="d-flex gap-2">
                       <a href="/marupdate/<%= marcas[i].idMarca %>" class="btn btn-info">Editar</a>
                       <a href="/mardelete/<%= marcas[i].idMarca %>" class="btn btn-danger"
                         onclick="return confirm('¿Estás seguro de que deseas eliminar esta marca?')">Eliminar</a>
                     </td>
                   </tr>
-                <% } %>
-              <% } else { %>
-                <tr>
-                  <td colspan="4" class="text-center">Sin registros</td>
-                </tr>
-              <% } %>
+                  <% } %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="4" class="text-center">Sin registros</td>
+                      </tr>
+                      <% } %>
             </tbody>
           </table>
-        <% } %>
-        
+          <% } %>
+
       </div>
       <div class="col-md-5">
-        <div class="card border-primary" >
+        <div class="card border-primary">
           <div class="card-body">
             <form action="<%= data ? '/marupdate/' + data.idMarca : '/marsave' %>" method="post">
+              <!-- Nombre -->
               <div class="form-group mb-3">
                 <input type="text" name="nombre" placeholder="Nombre" value="<%= data ? data.nombre : '' %>"
                   class="form-control" maxlength="50">
               </div>
-                <button type="submit" class="btn btn-primary me-2">
+              <button type="submit" class="btn btn-primary me-2">
                 <%= data ? 'Actualizar' : 'Registrar' %>
-                </button>
-                <% if (data) { %>
+              </button>
+              <% if (data) { %>
                 <a href="/marview" class="btn btn-secondary">Cancelar</a>
                 <% } %>
             </form>
