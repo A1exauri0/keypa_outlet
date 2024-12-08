@@ -23,7 +23,7 @@ app.use (myConnection(mysql, {
     port : 3306,
     database: 'keypa_outlet'
 }))
-
+app.use(express.urlencoded({extended: false}))
 
 // routes
 app.use('/',categoriasRoutes);

@@ -1,11 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Catalogo de categorias</h1>
-</body>
-</html>
+<%- include("partials/header.ejs") %>
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-7">
+        <% if (!data) { %>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr class="table-primary">
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (categorias && categorias.length > 0) { %>
+                <% for (var i = 0; i < categorias.length; i++) { %>
+                  <tr>
+                    <td><%= categorias[i].idCategoria %></td>
+                    <td><%= categorias[i].nombre %></td>
+                    <td><%= categorias[i].descripcion %></td>
+                    <td class="d-flex gap-2">
+                      <a href="/catupdate/<%= categorias[i].idCategoria %>" class="btn btn-info">Editar</a>
+                      <a href="/catdelete/<%= categorias[i].idCategoria %>" class="btn btn-danger">Eliminar</a>
+                    </td>
+                  </tr>
+                <% } %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center">Sin registros</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        <% } %>
+        
+      </div>
+      <div class="col-md-5">
+        <div class="card border-primary" >
+          <div class="card-body">
+            <form action="<%= data ? '/catupdate/' + data.idCategoria : '/catsave' %>" method="post">
+              <div class="form-group mb-3">
+                <input type="text" name="nombre" placeholder="Nombre" value="<%= data ? data.nombre : '' %>"
+                  class="form-control" maxlength="50">
+              </div>
+              <div class="form-group mb-3">
+                <textarea name="descripcion" placeholder="Descripción" class="form-control" maxlength="200" rows="5"><%= data ? data.descripcion : '' %></textarea>
+              </div>
+                <button type="submit" class="btn btn-primary me-2">
+                <%= data ? 'Actualizar' : 'Registrar' %>
+                </button>
+                <% if (data) { %>
+                <a href="/catview" class="btn btn-secondary">Cancelar</a>
+                <% } %>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <%- include("partials/footer.ejs") %>

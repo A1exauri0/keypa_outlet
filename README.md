@@ -1,4 +1,6 @@
 # keypa_outlet
+npm run dev
+
 codigo de la estructura del proyecto (en un archivo .bat):
 mkdir db
 mkdir src
