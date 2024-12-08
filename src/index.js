@@ -8,6 +8,7 @@ const app = express();
 
 // importar rutas
 const categoriasRoutes = require('./routes/categorias.js');
+const marcasRoutes = require('./routes/marcas.js');
 
 // Settings
 app.set('port', process.env.PORT ||3000);
@@ -27,6 +28,7 @@ app.use(express.urlencoded({extended: false}))
 
 // routes
 app.use('/',categoriasRoutes);
+app.use('/',marcasRoutes);
 
 
 //static files
