@@ -1,0 +1,105 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-7">
+                <% if (!data) { %>
+                    <table class="table table-bordered table-hover table-responsive">
+                        <thead>
+                            <tr class="table-primary">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Fecha registro</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (usuarios && usuarios.length> 0) { %>
+                                <% for (var i=0; i < usuarios.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= usuarios[i].nombre %>
+                                        </td>
+                                        <td>
+                                            <%= usuarios[i].email.split('@')[0] + '@...' %>
+                                        </td>
+                                        <td>
+                                            <%= usuarios[i].telefono %>
+                                        </td>
+                                        <td>
+                                            <%= usuarios[i].rol %>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= new Date(usuarios[i].fechaRegistro).toLocaleDateString('es-ES', {
+                                                year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+                                        </td>
+                                        <td class="d-flex gap-2">
+                                            <a href="/usupdate/<%= usuarios[i].idUsuario %>"
+                                                class="btn btn-info btn-sm">Editar</a>
+                                            <a href="/usdelete/<%= usuarios[i].idUsuario %>" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="8" class="text-center">Sin registros</td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
+
+            </div>
+            <div class="col-md-4 offset-md-1">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <form action="<%= data ? '/usupdate/' + data.idUsuario : '/ussave' %>" method="post">
+                            <!-- Nombre -->
+                            <div class="form-group mb-3">
+                                <input type="text" name="nombre" placeholder="Nombre"
+                                    value="<%= data ? data.nombre : '' %>" class="form-control" maxlength="100">
+                            </div>
+                            <!-- E-mail -->
+                            <div class="form-group mb-3">
+                                <input type="email" name="email" placeholder="E-mail"
+                                    value="<%= data ? data.email : '' %>" class="form-control" maxlength="50">
+                            </div>
+                            <!-- Password -->
+                            <div class="form-group mb-3"> 
+                                <input type="text" name="password" placeholder="Contraseña"
+                                    value="<%= data ? data.password : '' %>" class="form-control" maxlength="50">
+                            </div>
+                            <!-- Telefono -->
+                            <div class="form-group mb-3">
+                                <input type="tel" name="telefono" placeholder="Teléfono"
+                                    value="<%= data ? data.telefono : '' %>" class="form-control" maxlength="10" pattern="\d{10}" inputmode="numeric" required>
+                            </div>
+                            <!-- Direccion -->
+                            <div class="form-group mb-3">
+                                <input type="text" name="direccion" placeholder="Dirección"
+                                    value="<%= data ? data.direccion : '' %>" class="form-control" maxlength="100">
+                            </div>
+                            <!-- Rol -->
+                             <label for="">Rol:</label>
+                            <div class="form-group mb-3">
+                                <select class="form-select" id="exampleSelect1" name="rol">
+                                    <option value="cliente">Cliente</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">
+                                <%= data ? 'Actualizar' : 'Registrar' %>
+                            </button>
+                            <% if (data) { %>
+                                <a href="/usview" class="btn btn-secondary">Cancelar</a>
+                                <% } %>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("partials/footer.ejs") %>

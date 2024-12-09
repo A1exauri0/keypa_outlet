@@ -10,6 +10,7 @@ const app = express();
 const categoriasRoutes = require('./routes/categorias.js');
 const marcasRoutes = require('./routes/marcas.js');
 const productosRoutes = require('./routes/productos.js');
+const usuariosRoutes = require('./routes/usuarios.js');
 
 // Settings
 app.set('port', process.env.PORT ||3000);
@@ -32,6 +33,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/',categoriasRoutes);
 app.use('/',marcasRoutes);
 app.use('/',productosRoutes);
+app.use('/',usuariosRoutes);
 
 
 //static files
