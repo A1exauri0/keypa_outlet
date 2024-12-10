@@ -1,0 +1,37 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <% if (!pedidos || pedidos.length === 0) { %>
+        <div class="alert alert-warning" role="alert">
+          No hay pedidos registrados.
+        </div>
+      <% } else { %>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th scope="col">#</th>
+              <th scope="col">idUsuario</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pedidos.forEach(function(pedido) { %>
+              <tr>
+                <td><%= pedido.idPedido %></td>
+                <td><%= pedido.usuario_id %></td>
+                <td><%= pedido.fecha %></td> <!-- Suponiendo que tienes una fecha en la tabla -->
+                <td><%= pedido.total %></td> <!-- Suponiendo que tienes un total del pedido -->
+
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

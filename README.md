@@ -12,9 +12,8 @@ mkdir routes
 
 npm init --y
 
-npm install express mysql express-myconnection morgan ejs
-
-npm install nodemon
+npm install express mysql express-myconnection morgan ejs nodemon
+npm install  body-parser bcryptjs jsonwebtoken express-session 
 
 añadir al package:
 "scripts": {

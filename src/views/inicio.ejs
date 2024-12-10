@@ -1,0 +1,76 @@
+<%- include("partials/header.ejs") %>
+
+<style>
+    /* Agregar imagen de fondo */
+    body {
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    /* Estilo para el contenedor de cierre de sesión */
+    .logout-container {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+    }
+
+    /* Estilo para la tarjeta */
+    .card {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo transparente blanco para la tarjeta */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: -200px;
+    }
+
+    .card h2 {
+        color: #007bff;
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .card-body p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .btn-danger {
+        padding: 8px 15px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-danger:hover {
+        background-color: #dc3545;
+    }
+
+    /* Estilo para el contenedor principal */
+    .container-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        flex-direction: column;
+    }
+</style>
+
+<div class="container-main">
+    <div class="logout-container">
+        <% if (user) { %>
+            <form action="/logout" method="get">
+                <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+            </form>
+        <% } %>
+    </div>
+
+    <div class="card border-info mb-3" style="max-width: 20rem;">
+        <div class="card-body">
+            <% if (!user) { %>
+                <p>No estás autenticado. <a href="/login">Iniciar sesión</a></p>
+            <% } else { %>
+                <h2>Bienvenido, <%= user.nombre %></h2>
+            <% } %>
+        </div>
+    </div>
+</div>
