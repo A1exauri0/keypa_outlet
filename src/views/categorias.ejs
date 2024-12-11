@@ -10,7 +10,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
-                <th scope="col">Acciones</th>
+                <th scope="col" class="text-end d-flex justify-content-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                     <td><%= categorias[i].idCategoria %></td>
                     <td><%= categorias[i].nombre %></td>
                     <td><%= categorias[i].descripcion %></td>
-                    <td class="d-flex gap-2">
+                    <td class="text-end  justify-content-end">
                       <a href="/catupdate/<%= categorias[i].idCategoria %>" class="btn btn-info">Editar</a>
                       <a href="/catdelete/<%= categorias[i].idCategoria %>" 
                          class="btn btn-danger"

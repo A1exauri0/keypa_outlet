@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.min.css">
+    <link rel="shortcut icon" href="/images/logo.png" />
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
-        <!-- Botón del carrito en la parte superior derecha -->
-        <div class="d-flex justify-content-end mb-4">
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+            <!-- Título de la página -->
+            <h1 class="mb-0">Catálogo de Productos</h1>
+            <!-- Botón del carrito -->
             <a href="/carrito" class="btn btn-outline-primary">
                 <i class="fas fa-shopping-cart"></i> Carrito
             </a>
         </div>
-
-        <!-- Título de la página -->
-        <h1 class="text-center mb-4">Catálogo de Productos</h1>
         
+
         <!-- Formulario de filtrado -->
         <form method="GET" action="/catalogo" class="mb-5">
             <div class="row justify-content-center">
@@ -26,23 +30,25 @@
                     <label for="categoria" class="form-label">Categoría:</label>
                     <select name="categoria" id="categoria" class="form-select">
                         <option value="">Seleccione una categoría</option>
-                        <% categorias.forEach(categoria => { %>
-                            <option value="<%= categoria.idCategoria %>" <%= categoria.idCategoria == categoriaSeleccionada ? 'selected' : '' %>>
+                        <% categorias.forEach(categoria=> { %>
+                            <option value="<%= categoria.idCategoria %>" <%=categoria.idCategoria==categoriaSeleccionada
+                                ? 'selected' : '' %>>
                                 <%= categoria.nombre %>
                             </option>
-                        <% }); %>
+                            <% }); %>
                     </select>
                 </div>
-                
+
                 <div class="col-md-4 mb-3">
                     <label for="marca" class="form-label">Marca:</label>
                     <select name="marca" id="marca" class="form-select">
                         <option value="">Seleccione una marca</option>
-                        <% marcas.forEach(marca => { %>
-                            <option value="<%= marca.idMarca %>" <%= marca.idMarca == marcaSeleccionada ? 'selected' : '' %>>
+                        <% marcas.forEach(marca=> { %>
+                            <option value="<%= marca.idMarca %>" <%=marca.idMarca==marcaSeleccionada ? 'selected' : ''
+                                %>>
                                 <%= marca.nombre %>
                             </option>
-                        <% }); %>
+                            <% }); %>
                     </select>
                 </div>
 
@@ -54,37 +60,46 @@
 
         <!-- Mostrar los productos -->
         <h2 class="text-center mb-4">Productos</h2>
-        <% if (productos.length > 0) { %>
+        <% if (productos.length> 0) { %>
             <div class="row">
-                <% productos.forEach(producto => { %>
+                <% productos.forEach(producto=> { %>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm border-light rounded">
-                            <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>" class="card-img-top"
+                                style="height: 200px; object-fit: cover;">
                             <div class="card-body">
-                                <h5 class="card-title"><%= producto.nombre %></h5>
-                                <p class="card-text"><%= producto.descripcion %></p>
-                                <p class="card-text">Marca: <%= producto.marca %></p>
+                                <h5 class="card-title">
+                                    <%= producto.nombre %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= producto.descripcion %>
+                                </p>
+                                <p class="card-text">Marca: <%= producto.marca %>
+                                </p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <p><strong>Precio:</strong> $<%= producto.precio %></p>
+                                    <p><strong>Precio:</strong> $<%= producto.precio %>
+                                    </p>
                                     <form method="POST" action="/agregar-al-carrito">
                                         <input type="hidden" name="idProducto" value="<%= producto.idProducto %>">
                                         <input type="hidden" name="nombre" value="<%= producto.nombre %>">
                                         <input type="hidden" name="precio" value="<%= producto.precio %>">
                                         <input type="hidden" name="imagen" value="<%= producto.imagen %>">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm">Añadir al carrito</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">Añadir al
+                                            carrito</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <% }); %>
+                    <% }); %>
             </div>
-        <% } else { %>
-            <p class="text-center">No se encontraron productos.</p>
-        <% } %>
+            <% } else { %>
+                <p class="text-center">No se encontraron productos.</p>
+                <% } %>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -9,7 +9,7 @@
               <tr class="table-primary">
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Acciones</th>
+                <th scope="col" class="text-end d-flex justify-content-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     <td>
                       <%= marcas[i].nombre %>
                     </td>
-                    <td class="d-flex gap-2">
+                    <td class="text-end d-flex justify-content-end gap-2">
                       <a href="/marupdate/<%= marcas[i].idMarca %>" class="btn btn-info">Editar</a>
                       <a href="/mardelete/<%= marcas[i].idMarca %>" class="btn btn-danger"
                         onclick="return confirm('¿Estás seguro de que deseas eliminar esta marca?')">Eliminar</a>

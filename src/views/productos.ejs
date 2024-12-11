@@ -46,10 +46,11 @@
                                                 <%= new Date(producto.fechaRegistro).toLocaleDateString('es-ES', {
                                                     year: 'numeric' , month: 'long' , day: 'numeric' }) %>
                                             </td>
-                                            <td class="d-flex justify-content-center gap-2">
+                                            <td class="d-flex justify-content-end gap-2">
                                                 <a href="/proupdate/<%= producto.idProducto %>"
                                                     class="btn btn-info btn-sm">Editar</a>
-                                                <a href="/prodelete/<%= producto.idProducto %>" class="btn btn-danger btn-sm"
+                                                <a href="/prodelete/<%= producto.idProducto %>"
+                                                    class="btn btn-danger btn-sm"
                                                     onclick="return confirm('¿Estás seguro de que deseas eliminar esta marca?')">Eliminar</a>
                                                 </button>
                                             </td>
@@ -74,7 +75,7 @@
 
                         <h5 class="card-title text-center text-primary">
                         </h5>
-                        <form action="<%= data ? '/proupdate/' + data.idProducto : '/prosave' %>" method="post">
+                        <form action="<%= data ? '/proupdate/' + data.idProducto : '/prosave' %>" method="post" enctype="multipart/form-data">
                             <!-- Nombre -->
                             <div class="form-group mb-3">
                                 <input type="text" name="nombre" placeholder="Nombre del producto"
@@ -89,6 +90,11 @@
                             <div class="form-group mb-3">
                                 <input type="number" step="0.01" name="precio" placeholder="Precio del producto"
                                     value="<%= data ? data.precio : '' %>" class="form-control" required>
+                            </div>
+                            <!-- Imagen -->
+                             <label for="">Imagen:</label>
+                            <div class="form-group mb-3">
+                                <input class="form-control" type="file" name="imagen">
                             </div>
                             <!-- Categoria -->
                             <label for="">Categoría:</label>
