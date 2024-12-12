@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Tu pedido ha sido confirmado!</h1>
+    <p>Gracias por tu compra. Tu pedido está en proceso.</p>
+    <form action="/catalogo" method="get">
+        <button type="submit" class="btn btn-light">Regresar al Catálogo</button>
+    </form></body>
+</html>

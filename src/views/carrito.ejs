@@ -11,40 +11,50 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Carrito de Compras</h1>
 
-        <% if (carrito.length > 0) { %>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% carrito.forEach(item => { %>
-                            <tr>
-                                <td><%= item.nombre %></td>
-                                <td>$<%= item.precio %></td>
-                                <td><%= item.cantidad %></td>
-                                <td>$<%= item.precio * item.cantidad %></td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-end">
-                    <h4>Total: $<%= carrito.reduce((total, item) => total + item.precio * item.cantidad, 0) %></h4>
-                </div>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-body">
+                <% if (carrito.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% carrito.forEach(item => { %>
+                                    <tr>
+                                        <td><%= item.nombre %></td>
+                                        <td>$<%= item.precio %></td>
+                                        <td><%= item.cantidad %></td>
+                                        <td>$<%= item.precio * item.cantidad %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <h5>Total: $<%= carrito.reduce((total, item) => total + item.precio * item.cantidad, 0) %></h5>
+                        </div>
+                    </div>
 
-                <!-- Botón de hacer pedido -->
-                <form method="POST" action="/hacer-pedido" class="mt-4">
-                    <button type="submit" class="btn btn-success w-100">Hacer Pedido</button>
-                </form>
+                    <!-- Botones dentro de la card -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <!-- Botón de regresar -->
+                        <a href="/catalogo" class="btn btn-primary btn-sm">Regresar al Catálogo</a>
+
+                        <!-- Botón de hacer pedido -->
+                        <form method="POST" action="/hacer-pedido">
+                            <button type="submit" class="btn btn-success btn-sm">Hacer Pedido</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <p class="text-center">Tu carrito está vacío.</p>
+                <% } %>
             </div>
-        <% } else { %>
-            <p class="text-center">Tu carrito está vacío.</p>
-        <% } %>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

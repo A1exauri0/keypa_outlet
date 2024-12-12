@@ -38,9 +38,12 @@ router.get('/carrito', (req, res) => {
     });
 });
 
-// ruta para hacer un pedido
+// Ruta para hacer un pedido
 router.post('/hacer-pedido', (req, res) => {
-    const usuarioId = req.session.usuarioId;  // Obtener el ID de usuario desde la sesión
+    // Verifica si el ID del usuario está en la sesión
+    console.log('Sesión del usuario:', req.session.user);
+
+    const usuarioId = req.session.user ? req.session.user.id : null; // Obtener el ID de usuario desde la sesión
 
     if (!usuarioId) {
         return res.status(400).send('El ID del usuario es necesario');
@@ -86,6 +89,9 @@ router.post('/hacer-pedido', (req, res) => {
         });
     });
 });
-
+// Ruta para mostrar la confirmación del pedido
+router.get('/pedido-confirmado', (req, res) => {
+    res.render('pedido-confirmado');
+});
 
 module.exports = router;

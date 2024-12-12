@@ -69,11 +69,12 @@ router.post('/login', (req, res) => {
 
             // Guardar datos del usuario en la sesión
             req.session.user = {
-                id: user.id,
+                id: user.idUsuario,
                 nombre: user.nombre,
                 email: user.email,
                 rol: user.rol
             };
+            console.log('Usuario guardado en sesión:', req.session.user);
 
             // Redirigir según el rol del usuario
             if (user.rol === 'admin') {
